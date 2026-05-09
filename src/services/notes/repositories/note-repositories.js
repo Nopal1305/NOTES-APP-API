@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { nanoid } from 'nanoid';
 import { Pool } from 'pg';
 
@@ -30,14 +31,14 @@ class NoteRepositories {
       values: [id]
     };
 
-    const result = this.pool.query(query);
+    const result = await this.pool.query(query);
     return result.rows[0];
   }
 
   async editNote({ id, title, body, tags }) {
     const updatedAt = new Date().toISOString();
     const query = {
-      text: 'UPDATE notes SET title = $1, body = $2, tags = $3, updatedAt = $4, id = $5 RETURNING id',
+      text: 'UPDATE notes SET title = $1, body = $2, tags = $3, updated_at = $4, id = $5 RETURNING id',
       values: [title, body, tags, updatedAt, id]
     };
     const result = await this.pool.query(query);

@@ -52,7 +52,7 @@ export const editNote = async (req, res, next) => {
   return response(res, 200, 'Catatan berhasil diperbarui', note);
 };
 
-export const deleteNoteById = async (req, res, next) => {
+export const deleteNote = async (req, res, next) => {
   const { id } = req.params;
   const deleteNote = await NoteRepositories.deleteNote(id);
 

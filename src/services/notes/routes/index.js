@@ -3,8 +3,8 @@ import {
   createNote,
   getAllNotes,
   getNoteById,
-  editNoteById,
-  deleteNoteById
+  editNote,
+  deleteNote
 
 } from '../controller/note-controller.js';
 import { notePayloadSchema, noteQuerySchema } from '../validator/schema.js';
@@ -16,7 +16,7 @@ const router = express.Router();
 router.post('/notes', validate(notePayloadSchema), createNote);
 router.get('/notes', validateQuery(noteQuerySchema), getAllNotes);
 router.get('/notes/:id', getNoteById);
-router.put('/notes/:id', validate(notePayloadSchema), editNoteById);
-router.delete('/notes/:id', deleteNoteById);
+router.put('/notes/:id', validate(notePayloadSchema), editNote);
+router.delete('/notes/:id', deleteNote);
 
 export default router;
