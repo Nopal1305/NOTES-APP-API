@@ -9,8 +9,6 @@ export const createNote = async (req, res, next) => {
     body,
     tags
   });
-
-
   if (!note) {
     return next(new InvariantError('Catatan gagal ditambahkan'));
   }
