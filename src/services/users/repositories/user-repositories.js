@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 class UserRepositories {
   constructor() {
-    this.pool = Pool();
+    this.pool = new Pool();
   }
 
   async createUser({ username, password, fullname }) {
@@ -24,24 +24,25 @@ class UserRepositories {
 
   async verifyNewUsername(username) {
     const query = {
-      text: 'SELECT FROM users WHERE username=$1',
-      values: [username]
+      text: 'SELECT username FROM users WHERE username = $1',
+      values: [username],
     };
 
     const result = await this._pool.query(query);
-    return result.rows.lenght > 0;
+
+    return result.rows.length > 0;
   }
 
   async getUserById(id) {
     const query = {
-      text: 'SELECT FROM notes WHERE id=$1',
-      values: [id]
+      text: 'SELECT * FROM users WHERE id = $1',
+      values: [id],
     };
 
-    const result = this._pool.query(query);
+    const result = await this._pool.query(query);
+
     return result.rows[0];
   }
-
   async verifyUserCredential(username, password) {
     const query = {
       text: 'SELECT id, password FROM users WHERE username = $1',
@@ -63,4 +64,4 @@ class UserRepositories {
   }
 }
 
-export default UserRepositories;
+export default new UserRepositories();
