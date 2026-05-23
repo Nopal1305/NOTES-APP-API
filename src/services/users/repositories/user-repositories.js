@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 class UserRepositories {
   constructor() {
-    this.pool = new Pool();
+    this._pool = new Pool();
   }
 
   async createUser({ username, password, fullname }) {
@@ -24,7 +24,7 @@ class UserRepositories {
 
   async verifyNewUsername(username) {
     const query = {
-      text: 'SELECT username FROM users WHERE username = $1',
+      text: 'SELECT id FROM users WHERE username = $1',
       values: [username],
     };
 

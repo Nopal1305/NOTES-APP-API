@@ -28,7 +28,7 @@ class NoteRepositories {
     return result.rows;
   }
 
-  async getNotebyId(id) {
+  async getNoteById(id) {
     const query = {
       text: 'SELECT * FROM notes WHERE id = $1',
       values: [id]
@@ -41,7 +41,7 @@ class NoteRepositories {
   async editNote({ id, title, body, tags }) {
     const updatedAt = new Date().toISOString();
     const query = {
-      text: 'UPDATE notes SET title = $1, body = $2, tags = $3, updated_at = $4 WHERE id = $5 RETURNING id',
+      text: 'UPDATE notes SET title = $1, body = $2, tags = $3, updated_at = $4 WHERE id = $5 RETURNING id, title, body, tags, updated_at',
       values: [title, body, tags, updatedAt, id]
     };
     const result = await this.pool.query(query);

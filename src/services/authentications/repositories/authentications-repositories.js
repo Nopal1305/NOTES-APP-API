@@ -4,9 +4,10 @@ class AuthenticationRepositories {
   constructor() {
     this.pool = new Pool();
   }
+
   async addRefreshToken(token) {
     const query = {
-      text: 'INSERT INTO authentications VALUE($1)',
+      text: 'INSERT INTO authentications VALUES($1)',
       values: [token]
     };
 
@@ -15,7 +16,7 @@ class AuthenticationRepositories {
 
   async deleteRefreshToken(token) {
     const query = {
-      text: 'DELET FROM authentications WHERE token=$1',
+      text: 'DELETE FROM authentications WHERE token=$1',
       values: [token]
     };
 
@@ -29,11 +30,11 @@ class AuthenticationRepositories {
     };
 
     const result = await this.pool.query(query);
-    if (!result.rows.lenght) {
+    if (!result.rows.length) {
       return false;
     }
     return result.rows[0];
   }
 }
 
-export default AuthenticationRepositories;
+export default new AuthenticationRepositories();

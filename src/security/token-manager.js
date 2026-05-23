@@ -1,4 +1,5 @@
 import InvariantError from '../exception/invariant-error.js';
+import jwt from 'jsonwebtoken';
 
 const TokenManager = {
   generateAccessToken: (payload) => jwt.sign(payload, process.env.ACCESS_TOKEN_KEY),
@@ -14,7 +15,7 @@ const TokenManager = {
   },
   verify: (accessToken, secret) => {
     try {
-      const payload = jwt.verify(accessToken, secret)
+      const payload = jwt.verify(accessToken, secret);
       return payload;
     } catch (error) {
       console.log(error);

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import NoteRepositories from '../repositories/note-repositories.js';
 import { InvariantError, NotFoundError } from '../../../exception/index.js';
 import response from '../../../utils/response.js';
@@ -16,13 +17,13 @@ export const createNote = async (req, res, next) => {
     return next(new InvariantError('Catatan gagal ditambahkan'));
   }
 
-  return response(res, 201, 'Catatan berhasil ditambahkan', note);
+  return response(res, 201, 'Catatan berhasil ditambahkan', { note });
 };
 
 export const getAllNotes = async (req, res) => {
   const { id: owner } = req.user;
-  const notes = await NoteRepositories.getNotes(owner);
-  return response(res, 200, 'Catatan sukses ditampilkan', notes);
+  const note = await NoteRepositories.getNotes(owner);
+  return response(res, 200, 'Catatan sukses ditampilkan', { notes: note });
 };
 
 export const getNoteById = async (req, res, next) => {
@@ -36,7 +37,7 @@ export const getNoteById = async (req, res, next) => {
   if (!note) {
     return next(new NotFoundError('Catatan tidak ditemukan'));
   }
-  return response(res, 200, 'Catatan sukses ditampilkan', note);
+  return response(res, 200, 'Catatan sukses ditampilkan', { note });
 };
 
 export const editNoteById = async (req, res, next) => {
@@ -60,7 +61,7 @@ export const editNoteById = async (req, res, next) => {
   if (!note) {
     return next(new NotFoundError('Catatan tidak ditemukan'));
   }
-  return response(res, 200, 'Catatan berhasil diperbarui', note);
+  return response(res, 200, 'Catatan berhasil diperbarui', { note: note });
 };
 
 export const deleteNoteById = async (req, res, next) => {
